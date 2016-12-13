@@ -33,7 +33,18 @@ function addTile() {
 	var y = Math.round(Math.random()*3);
     var numbers = ["2","4"];
     var tile = numbers[Math.floor(Math.random() * numbers.length)];
-	grid[x][y] = tile;
+    if(Math.random()<0.8){
+        tile = "2";
+    } else {
+        tile = "4";
+    }
+    while(grid[x][y] !== "x"){
+        x = Math.round(Math.random()*3);
+        y = Math.round(Math.random()*3);
+    }
+
+    grid[x][y] = tile;
+
 }
 	
 
@@ -91,6 +102,8 @@ document.onkeydown = function(e) {
        addTile();
     } 
     
+    
+    
     printBoard(); //have to recall print board to get the board to update
 };
 
@@ -101,7 +114,7 @@ function moveTilesUp()
     {
         for(var c=0; c<grid[r].length; c++)
         {
-            if(r !== 0  && grid[r][c] !== "x" && grid[r-1][c] === "x")
+            if(r !== 0  && grid[r][c] !== "x" && grid[r-1][c] == "x")
             {
                 grid[r-1][c] = grid[r][c];
                 grid[r][c] = "x";
@@ -120,7 +133,7 @@ function moveTilesDown()
     {
         for(var c=0; c<grid[r].length; c++)
         {
-            if(r !== grid.length-1  && grid[r][c] !== "x" && grid[r+1][c] === "x")
+            if(r !== grid.length-1  && grid[r][c] !== "x" && grid[r+1][c] == "x")
             {
                 grid[r+1][c] = grid[r][c];
                 grid[r][c] = "x";
@@ -140,7 +153,7 @@ function moveTilesLeft()
     {
         for(var c=0; c<grid[r].length; c++)
         {
-            if(c !== 0  && grid[r][c] !== "x")
+            if(c !== 0  && grid[r][c] !== "x" && grid[r][c-1] == "x")
             {
                 grid[r][c-1] = grid[r][c];
                 grid[r][c] = "x";
@@ -158,7 +171,7 @@ function moveTilesRight()
     {
         for(var c=grid[r].length; c>=0; c--)
         {
-            if(c !== grid[r].length-1  && grid[r][c] !== "x" && grid[r][c+1] === "x")
+            if(c !== grid[r].length-1  && grid[r][c] !== "x" && grid[r][c+1] == "x")
             {
                 grid[r][c+1] = grid[r][c];
                 grid[r][c] = "x";
