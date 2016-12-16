@@ -35,8 +35,10 @@ function addTile() {
     var tile = numbers[Math.floor(Math.random() * numbers.length)];
     if(Math.random()<0.8){
         tile = "2";
+        var value = 2;
     } else {
         tile = "4";
+        var value = 4;
     }
     while(grid[x][y] !== "x"){
         x = Math.round(Math.random()*3);
@@ -78,34 +80,104 @@ document.onkeydown = function(e) {
     //to use triple equals sign 
     if (e.keyCode == UP_ARROW) {
         // up arrow
+        combineTilesUp();
         moveTilesUp();
-        addTile();
-        
     }
     //double equals sign will convert it for us 
     else if (e.keyCode == DOWN_ARROW) {
         // down arrow
         console.log("Pressed down");
+        combineTilesDown();
         moveTilesDown();
-        addTile();
     }
     else if (e.keyCode == LEFT_ARROW) {
        // left arrow
        console.log("Pressed left");
+       combineTilesLeft();
        moveTilesLeft();
-       addTile();
     }
     else if (e.keyCode == RIGHT_ARROW) {
        // right arrow
        console.log("Pressed right");
+       combineTilesRight();
        moveTilesRight();
-       addTile();
     } 
     
-    
-    
+    addTile();
     printBoard(); //have to recall print board to get the board to update
 };
+function combineTilesUp(){
+    for(var r=0; r < grid.length; r++)
+    {
+        for(var c=0; c<grid[r].length; c++)
+        {
+            if(r!==0 && grid[r][c] !== "x" && grid[r][c] == grid[r-1][c])
+            {
+                var tileNumber = parseInt(grid[r][c]) + parseInt(grid[r-1][c]);
+                grid[r-1][c] = tileNumber + "";
+                grid[r][c] = "x";
+            }
+
+        }
+        
+    }   
+
+}
+
+function combineTilesDown(){
+    for(var r=grid.length-1; r >= 0; r--)
+    {
+        for(var c=0; c<grid[r].length; c++)
+        {
+            if(r !== grid.length-1 && grid[r][c] !== "x" && grid[r][c] == grid[r+1][c])
+            {
+                var tileNumber = parseInt(grid[r][c]) + parseInt(grid[r+1][c]);
+                grid[r][c] = tileNumber + "";
+                grid[r+1][c] = "x";
+            }
+
+        }
+        
+    }   
+
+}
+
+function combineTilesLeft(){
+    for(var r=0; r < grid.length; r++)
+    {
+        for(var c=0; c < grid[r].length-1; c++)
+        {
+            if(c !== grid[r].length-1 && grid[r][c] !== "x" && grid[r][c] == grid[r][c-1])
+            {
+                var tileNumber = parseInt(grid[r][c]) + parseInt(grid[r][c-1]);
+                grid[r][c-1] = tileNumber + "";
+                grid[r][c] = "x";
+            }
+
+        }
+        
+    }   
+
+}
+
+function combineTilesRight(){
+    for(var r=0; r < grid.length; r++)
+    {
+        for(var c=grid[r].length-1; c >= 0; c--)
+        {
+            if(c !== 0 && grid[r][c] !== "x" && grid[r][c] == grid[r][c+1])
+            {
+                var tileNumber = parseInt(grid[r][c]) + parseInt(grid[r][c+1]);
+                grid[r][c+1] = tileNumber + "";
+                grid[r][c] = "x";
+            }
+
+        }
+        
+    }   
+
+}
+
 
 function moveTilesUp()
 {
@@ -119,7 +191,7 @@ function moveTilesUp()
                 grid[r-1][c] = grid[r][c];
                 grid[r][c] = "x";
             }
-            
+
         }
         
     }   
@@ -153,7 +225,7 @@ function moveTilesLeft()
     {
         for(var c=0; c<grid[r].length; c++)
         {
-            if(c !== 0  && grid[r][c] !== "x" && grid[r][c-1] == "x")
+            if(c !== 0  && grid[r][c] !== "x" && grid[r][c-1] === "x")
             {
                 grid[r][c-1] = grid[r][c];
                 grid[r][c] = "x";
@@ -171,7 +243,7 @@ function moveTilesRight()
     {
         for(var c=grid[r].length; c>=0; c--)
         {
-            if(c !== grid[r].length-1  && grid[r][c] !== "x" && grid[r][c+1] == "x")
+            if(c !== grid[r].length-1  && grid[r][c] !== "x" && grid[r][c+1] === "x")
             {
                 grid[r][c+1] = grid[r][c];
                 grid[r][c] = "x";
