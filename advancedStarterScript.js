@@ -5,6 +5,9 @@ var UP_ARROW = '38';
 var DOWN_ARROW = '40';
 var LEFT_ARROW = '37';
 var RIGHT_ARROW = '39';
+var emptySpaces = true;
+var combinations = false;
+
 
 function printBoard(){
 
@@ -69,7 +72,9 @@ function printBoard(){
 		}
 	}
 }
-
+function printScore(); {
+	
+}
 //As soon as webpage loads run these two functions
 $(document).ready(function(){
 	addTile();
@@ -80,7 +85,6 @@ $(document).ready(function(){
 
 //show students an ascii conversion tool. 
 document.onkeydown = function(e){
-	console.log(e.keyCode);
 
 	if (e.keyCode == UP_ARROW) {
         // up arrow
@@ -103,10 +107,64 @@ document.onkeydown = function(e){
        combineTilesRight();
        moveTilesRight();
     } 
+    emptySpaceLeft();
+    if(emptySpaces == false){
+    	combinationsAvailable();
+    }
+    if(combinations == false && emptySpaces == false){
+    	//insert kill-all or something
+    }
     addTile();
     printBoard();
-};
 
+};
+function emptySpaceLeft(){
+	var emptySpaces = true;
+	for(var r=board.length-1; r >= 0; r--)
+    {
+        for(var c=0; c<board[r].length; c++)
+        {
+            if(board[r][c] != 0){
+            	emptySpaces = false;
+            } else {
+            	emptySpaces = true;
+            }
+
+        }
+        
+    }   
+};
+function combinationsAvailable(){
+	var combinations = false;
+	for(var r=0; r < board.length; r++)
+    {
+        for(var c=board[r].length; c>=0; c--)
+        {
+            if(board[r][c] == board[r][c+1])
+            {
+                combinations = true;
+            } else {
+            	combinations = false;
+            }
+            
+        }
+        
+    } 
+    for(var r=0; r < board.length; r++)
+    {
+        for(var c=0; c<board[r].length; c++)
+        {
+            if(board[r][c] == board[r-1][c])
+            {
+                combinations = true;
+            } else {
+            	combinations = false;
+            }
+
+        }
+        
+    } 
+};
 function addTile() {
     var x = Math.round(Math.random()*3);
     var y = Math.round(Math.random()*3);
@@ -117,7 +175,7 @@ function addTile() {
     } else {
         tile = 4;
     }
-    while(board[x][y] != 0){
+    while(board[x][y] != 0 && emptySpaces == true){
         x = Math.round(Math.random()*3);
         y = Math.round(Math.random()*3);
     }
@@ -126,7 +184,7 @@ function addTile() {
 
 };
 
-function combineTilesDown(){
+function combineTilesUp(){
     for(var r=0; r < board.length; r++)
     {
         for(var c=0; c<board[r].length; c++)
@@ -143,7 +201,7 @@ function combineTilesDown(){
 
 };
 
-function combineTilesUp(){
+function combineTilesDown(){
     for(var r=board.length-1; r >= 0; r--)
     {
         for(var c=0; c<board[r].length; c++)
