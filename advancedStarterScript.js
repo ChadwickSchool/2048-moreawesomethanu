@@ -7,9 +7,12 @@ var LEFT_ARROW = '37';
 var RIGHT_ARROW = '39';
 var emptySpaces = true;
 var combinations = false;
-
+var score = 0;
+var newScore = 0;
 
 function printBoard(){
+	document.getElementById("scoreboard").innerHTML = score + "";
+	document.getElementById("scoreboard").style.color = "000000";
 
 	for(var i = 0; i < 4; i++){
 		for(var j = 0; j < 4; j++){
@@ -72,9 +75,7 @@ function printBoard(){
 		}
 	}
 }
-function printScore(); {
-	
-}
+
 //As soon as webpage loads run these two functions
 $(document).ready(function(){
 	addTile();
@@ -107,6 +108,7 @@ document.onkeydown = function(e){
        combineTilesRight();
        moveTilesRight();
     } 
+    /*
     emptySpaceLeft();
     if(emptySpaces == false){
     	combinationsAvailable();
@@ -114,10 +116,16 @@ document.onkeydown = function(e){
     if(combinations == false && emptySpaces == false){
     	//insert kill-all or something
     }
+    */
     addTile();
     printBoard();
+   
 
 };
+function updateScore(newScore){
+	score+=newScore;
+}
+
 function emptySpaceLeft(){
 	var emptySpaces = true;
 	for(var r=board.length-1; r >= 0; r--)
@@ -192,6 +200,7 @@ function combineTilesUp(){
             if(r!=0 && board[r][c] != 0 && board[r][c] == board[r-1][c])
             {
                 board[r-1][c] = board[r][c]+board[r-1][c];
+                updateScore(board[r-1][c]);
                 board[r][c] = 0;
             }
 
@@ -209,7 +218,9 @@ function combineTilesDown(){
             if(r != board.length-1 && board[r][c] != 0 && board[r][c] == board[r+1][c])
             {
                 board[r+1][c] = board[r][c]+board[r+1][c];
+                updateScore(board[r+1][c]);
                 board[r][c] = 0;
+
             }
 
         }
@@ -226,6 +237,7 @@ function combineTilesLeft(){
             if(c != board[r].length-1 && board[r][c] != 0 && board[r][c] == board[r][c+1])
             {
                 board[r][c] = board[r][c]+board[r][c+1];
+                updateScore(board[r][c]);
                 board[r][c+1] = 0;
             }
 
@@ -243,6 +255,7 @@ function combineTilesRight(){
             if(c != 0 && board[r][c] != 0 && board[r][c] == board[r][c-1])
             {
                 board[r][c] = board[r][c]+board[r][c-1];
+                updateScore(board[r][c]);
                 board[r][c-1] = 0;
             }
 
@@ -258,11 +271,11 @@ function moveTilesDown()
     {
         for(var c=0; c<board[r].length; c++)
         {
-            if(r != board.length-1  && board[r][c] != 0 && board[r+1][c] == 0)
+            while(r != board.length-1  && board[r][c] != 0 && board[r+1][c] == 0)
             {
                 board[r+1][c] = board[r][c];
                 board[r][c] = 0;
-
+                r++;
             }
             
         }
@@ -277,10 +290,11 @@ function moveTilesUp()
     {
         for(var c=0; c<board[r].length; c++)
         {
-            if(r != 0  && board[r][c] != 0 && board[r-1][c] == 0)
+            while(r != 0  && board[r][c] != 0 && board[r-1][c] == 0)
             {
                 board[r-1][c] = board[r][c];
                 board[r][c] = 0;
+                r--;
             }
 
         }
@@ -296,10 +310,11 @@ function moveTilesLeft()
     {
         for(var c=0; c<board[r].length; c++)
         {
-            if(c != 0  && board[r][c] != 0 && board[r][c-1] == 0)
+            while(c != 0  && board[r][c] != 0 && board[r][c-1] == 0)
             {
                 board[r][c-1] = board[r][c];
                 board[r][c] = 0;
+                c--;
             }
             
         }
@@ -314,11 +329,12 @@ function moveTilesRight()
     {
         for(var c=board[r].length; c>=0; c--)
         {
-            if(c != board[r].length-1  && board[r][c] != 0 && board[r][c+1] == 0)
+            while(c != board[r].length-1  && board[r][c] != 0 && board[r][c+1] == 0)
             {
                 board[r][c+1] = board[r][c];
                 board[r][c] = 0;
-                console.log(board[r][c]);
+                //console.log(board[r][c]);
+                c++;
             }
 
             
