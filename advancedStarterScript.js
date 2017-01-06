@@ -11,8 +11,8 @@ var score = 0;
 var newScore = 0;
 
 function printBoard(){
-	document.getElementById("scoreboard").innerHTML = score + "";
-	document.getElementById("scoreboard").style.color = "000000";
+	document.getElementById("scoreboard").innerHTML = "Score: " + score + "";
+	document.getElementById("scoreboard").style.color = "#A7998C";
 
 	for(var i = 0; i < 4; i++){
 		for(var j = 0; j < 4; j++){
@@ -108,71 +108,116 @@ document.onkeydown = function(e){
        combineTilesRight();
        moveTilesRight();
     } 
-    /*
+    
     emptySpaceLeft();
-    if(emptySpaces == false){
-    	combinationsAvailable();
-    }
+    checkAllTheCombinations();
     if(combinations == false && emptySpaces == false){
-    	//insert kill-all or something
+    	window.alert("U lost man");
     }
-    */
-    addTile();
+    if(emptySpaces == true){
+    	addTile();
+	}
     printBoard();
    
 
-};
+}
 function updateScore(newScore){
 	score+=newScore;
 }
 
 function emptySpaceLeft(){
-	var emptySpaces = true;
+	var emptySpaces = false;
 	for(var r=board.length-1; r >= 0; r--)
     {
         for(var c=0; c<board[r].length; c++)
         {
-            if(board[r][c] != 0){
-            	emptySpaces = false;
-            } else {
+            if(board[r][c] == 0){
             	emptySpaces = true;
-            }
+            	break;
+            } 
+
 
         }
         
     }   
 };
-function combinationsAvailable(){
-	var combinations = false;
-	for(var r=0; r < board.length; r++)
-    {
-        for(var c=board[r].length; c>=0; c--)
-        {
-            if(board[r][c] == board[r][c+1])
-            {
-                combinations = true;
-            } else {
-            	combinations = false;
-            }
-            
-        }
-        
-    } 
+
+function checkAllTheCombinations(){
+	combinations = false;
+	combinationsUp();
+	if(combinations == false){
+		combinationsDown();
+		if(combinations == false){
+			combinationsRight();
+			if(combinations == false){
+				combinationsLeft();
+			}
+		}
+	} 
+};
+function combinationsUp(){
+
     for(var r=0; r < board.length; r++)
     {
         for(var c=0; c<board[r].length; c++)
         {
-            if(board[r][c] == board[r-1][c])
+            if(r!=0 && board[r][c] != 0 && board[r][c] == board[r-1][c])
             {
                 combinations = true;
-            } else {
-            	combinations = false;
+            }
+        }
+        
+    }
+};
+
+function combinationsDown(){   
+
+    for(var r=board.length-1; r >= 0; r--)
+    {
+        for(var c=0; c<board[r].length; c++)
+        {
+            if(r != board.length-1 && board[r][c] != 0 && board[r][c] == board[r+1][c])
+            {
+                combinations = true;
+
             }
 
         }
         
-    } 
+    }
+};   
+
+function combinationsRight(){
+	for(var r=0; r < board.length; r++)
+    {
+        for(var c=0; c < board[r].length-1; c++)
+        {
+            if(c != board[r].length-1 && board[r][c] != 0 && board[r][c] == board[r][c+1])
+            {
+                combinations = true;
+            } 
+
+        }
+        
+    }  
 };
+     
+function combinationsLeft(){
+	for(var r=0; r < board.length; r++)
+	{
+        for(var c=board[r].length-1; c >= 0; c--)
+        {
+            if(c != 0 && board[r][c] != 0 && board[r][c] == board[r][c-1])
+            {
+                combinations = true;
+            }
+
+        }
+	        
+	}   
+};
+
+
 function addTile() {
     var x = Math.round(Math.random()*3);
     var y = Math.round(Math.random()*3);
@@ -183,11 +228,12 @@ function addTile() {
     } else {
         tile = 4;
     }
-    while(board[x][y] != 0 && emptySpaces == true){
-        x = Math.round(Math.random()*3);
-        y = Math.round(Math.random()*3);
-    }
-
+    if(emptySpaces == true){
+	    while(board[x][y] != 0){
+	        x = Math.round(Math.random()*3);
+	        y = Math.round(Math.random()*3);
+	    }
+	}
     board[x][y] = tile;
 
 };
