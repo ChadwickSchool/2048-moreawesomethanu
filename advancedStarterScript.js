@@ -1,11 +1,12 @@
 
 //2D array initialized with sample values. To get a blank board initialize all the values to zero
-var board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+//var board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+var board = [[2,4,8,16],[4,8,16,32],[2,4,8,16],[8,2,4,1024]];
 var UP_ARROW = '38';
 var DOWN_ARROW = '40';
 var LEFT_ARROW = '37';
 var RIGHT_ARROW = '39';
-var emptySpaces = true;
+var emptySpaces = false;
 var combinations = false;
 var score = 0;
 var newScore = 0;
@@ -80,7 +81,6 @@ function printBoard(){
 $(document).ready(function(){
 	addTile();
 	printBoard();
-	console.log("Loaded webpage"); //how you do print statements in javascript
 });
 
 
@@ -108,11 +108,19 @@ document.onkeydown = function(e){
        combineTilesRight();
        moveTilesRight();
     } 
-    
+    console.log(emptySpaces);
     emptySpaceLeft();
     checkAllTheCombinations();
     if(combinations == false && emptySpaces == false){
+    	for(var i=0; i<4; i++){
+        	var innergrid = [];
+        	for(var j=0; j<4; j++){
+            	innergrid.push(0);
+        	}
+        	board.push(innergrid);
+    	}		
     	window.alert("U lost man");
+    	
     }
     if(emptySpaces == true){
     	addTile();
@@ -126,7 +134,6 @@ function updateScore(newScore){
 }
 
 function emptySpaceLeft(){
-	var emptySpaces = false;
 	for(var r=board.length-1; r >= 0; r--)
     {
         for(var c=0; c<board[r].length; c++)
@@ -134,7 +141,9 @@ function emptySpaceLeft(){
             if(board[r][c] == 0){
             	emptySpaces = true;
             	break;
-            } 
+            } else {
+            	emptySpaces = false;
+            }
 
 
         }
