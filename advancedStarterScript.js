@@ -1,6 +1,6 @@
 
 //2D array initialized with sample values. To get a blank board initialize all the values to zero
-var board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+var board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,2048]];
 var UP_ARROW = '38';
 var DOWN_ARROW = '40';
 var LEFT_ARROW = '37';
@@ -9,6 +9,8 @@ var emptySpaces = false;
 var combinations = false;
 var score = 0;
 var newScore = 0;
+var winScore = 2048;
+var win = false;
 
 function printBoard(){
 	document.getElementById("scoreboard").innerHTML = "Score: " + score + "";
@@ -107,7 +109,11 @@ document.onkeydown = function(e){
        combineTilesRight();
        moveTilesRight();
     } 
-    console.log(emptySpaces);
+    check4thewin();
+    if(win == true){
+        winScore+=winScore;
+        window.alert("Congratulations! Your next goal is " + winScore);
+    }
     emptySpaceLeft();
     checkAllTheCombinations();
     if(combinations == false && emptySpaces == false){      
@@ -116,7 +122,7 @@ document.onkeydown = function(e){
             for(var c=0; c<board[r].length; c++){
                  board[r][c] = 0;
              }
-        
+        emptySpaces = true;
         }
     }   
     if(emptySpaces == true){
@@ -129,6 +135,79 @@ document.onkeydown = function(e){
 function updateScore(newScore){
 	score+=newScore;
 }
+function check4thewin(){
+checkwinUp();
+    if(win == false){
+        checkwinDown();
+        if(win == false){
+            checkwinRight();
+            if(win == false){
+                checkwinLeft();
+            }
+        }
+    } 
+}
+function checkwinUp(){
+
+    for(var r=0; r < board.length; r++)
+    {
+        for(var c=0; c<board[r].length; c++)
+        {
+            if(r!=0 && board[r][c] != 0 && board[r][c] == winScore)
+            {
+                win = true;
+            }
+        }
+        
+    }
+};
+
+function checkwinDown(){   
+
+    for(var r=board.length-1; r >= 0; r--)
+    {
+        for(var c=0; c<board[r].length; c++)
+        {
+            if(r != board.length-1 && board[r][c] != 0 && board[r][c] == winScore)
+            {
+                win = true;
+
+            }
+
+        }
+        
+    }
+};   
+
+function checkwinRight(){
+    for(var r=0; r < board.length; r++)
+    {
+        for(var c=0; c < board[r].length-1; c++)
+        {
+            if(c != board[r].length-1 && board[r][c] != 0 && board[r][c] == winScore)
+            {
+                win = true;
+            } 
+
+        }
+        
+    }  
+};
+     
+function checkwinLeft(){
+    for(var r=0; r < board.length; r++)
+    {
+        for(var c=board[r].length-1; c >= 0; c--)
+        {
+            if(c != 0 && board[r][c] != 0 && board[r][c] == winScore)
+            {
+                win = true;
+            }
+
+        }
+            
+    }   
+};
 
 function emptySpaceLeft(){
 	for(var r=board.length-1; r >= 0; r--)
