@@ -1,7 +1,6 @@
 
 //2D array initialized with sample values. To get a blank board initialize all the values to zero
-//var board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
-var board = [[2,4,8,16],[4,8,16,32],[2,4,8,16],[8,2,4,1024]];
+var board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
 var UP_ARROW = '38';
 var DOWN_ARROW = '40';
 var LEFT_ARROW = '37';
@@ -111,17 +110,15 @@ document.onkeydown = function(e){
     console.log(emptySpaces);
     emptySpaceLeft();
     checkAllTheCombinations();
-    if(combinations == false && emptySpaces == false){
-    	for(var i=0; i<4; i++){
-        	var innergrid = [];
-        	for(var j=0; j<4; j++){
-            	innergrid.push(0);
-        	}
-        	board.push(innergrid);
-    	}		
-    	window.alert("U lost man");
-    	
-    }
+    if(combinations == false && emptySpaces == false){      
+        window.alert("U lost man");
+        for(var r=board.length-1; r >= 0; r--) {
+            for(var c=0; c<board[r].length; c++){
+                 board[r][c] = 0;
+             }
+        
+        }
+    }   
     if(emptySpaces == true){
     	addTile();
 	}
