@@ -71,6 +71,10 @@ function printBoard(){
 					document.getElementById(boardID).style.color = "#ffffff";
 					document.getElementById(boardID).style.background = "#ccc0b3";
 					break;
+                case 4096:
+                    document.getElementById(boardID).style.color = "#ffffff";
+                    document.getElementById(boardID).style.background = "#07F6E8";
+                    break;
 				default:
 					//similar to the else statement. If none of the other cases execute, this statement will execute
 			}
@@ -111,8 +115,8 @@ document.onkeydown = function(e){
     } 
     check4thewin();
     if(win == true){
-        winScore+=winScore;
         window.alert("Congratulations! Your next goal is " + winScore);
+        win = false;
     }
     emptySpaceLeft();
     checkAllTheCombinations();
@@ -136,6 +140,7 @@ function updateScore(newScore){
 	score+=newScore;
 }
 function check4thewin(){
+    console.log(winScore);
 checkwinUp();
     if(win == false){
         checkwinDown();
@@ -156,6 +161,7 @@ function checkwinUp(){
             if(r!=0 && board[r][c] != 0 && board[r][c] == winScore)
             {
                 win = true;
+                winScore+=winScore;
             }
         }
         
