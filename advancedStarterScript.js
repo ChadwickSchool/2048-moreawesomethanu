@@ -372,7 +372,7 @@ function combinationsRight(){
         
     }  
 };
-     
+
 function combinationsLeft(){
 	for(var r=0; r < board.length; r++)
 	{
