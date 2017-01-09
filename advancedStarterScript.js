@@ -149,6 +149,7 @@ document.onkeydown = function(e){
             for(var c=0; c<board[r].length; c++){
                  board[r][c] = 0;
              }
+            score = 0;
             }
         emptySpaces = true;
         }
