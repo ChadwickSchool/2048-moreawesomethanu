@@ -140,6 +140,7 @@ document.onkeydown = function(e){
     }
     console.log(emptySpaces);
     checkAllTheCombinations();
+    emptySpaceLeft();
     if(combinations == false){
         emptySpaceLeft();
     }
