@@ -1,6 +1,6 @@
 
 //2D array initialized with sample values. To get a blank board initialize all the values to zero
-var board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,2048]];
+var board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,8192]];
 var UP_ARROW = '38';
 var DOWN_ARROW = '40';
 var LEFT_ARROW = '37';
@@ -15,9 +15,11 @@ var win = false;
 function printBoard(){
 	document.getElementById("scoreboard").innerHTML = "Score: " + score + "";
 	document.getElementById("scoreboard").style.color = "#A7998C";
+    document.getElementById("winScore").style.color = "#A7998C";
+    document.getElementById("winScore").innerHTML = "Goal: " + winScore + "";
 
-	for(var i = 0; i < 4; i++){
-		for(var j = 0; j < 4; j++){
+	for(var i = 0; i < board.length; i++){
+		for(var j = 0; j < board.length; j++){
 			var boardID = "r"+i+"c"+j;
 			//if the tile is not zero, put it on the board 
 				document.getElementById(boardID).innerHTML = board[i][j];
@@ -78,6 +80,16 @@ function printBoard(){
                 case 8192:
                     document.getElementById(boardID).style.color = "#ffffff";
                     document.getElementById(boardID).style.background = "#79FD69";
+                    break;
+                case 16384:
+                    document.getElementById(boardID).style.color = "#ffffff";
+                    document.getElementById(boardID).style.fontSize = 24;
+                    document.getElementById(boardID).style.background = "#000000";
+                    break;
+                case 32768:
+                    document.getElementById(boardID).style.color = "#ffffff";
+                    document.getElementById(boardID).style.fontSize = 24;
+                    document.getElementById(boardID).style.background = "#FAF616";
                     break;
 				default:
 					//similar to the else statement. If none of the other cases execute, this statement will execute
@@ -140,11 +152,12 @@ document.onkeydown = function(e){
    
 
 }
+
+
 function updateScore(newScore){
 	score+=newScore;
 }
 function check4thewin(){
-    console.log(winScore);
 checkwinUp();
     if(win == false){
         checkwinDown();
