@@ -1,6 +1,6 @@
 
 //2D array initialized with sample values. To get a blank board initialize all the values to zero
-var board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,8192]];
+var board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
 var UP_ARROW = '38';
 var DOWN_ARROW = '40';
 var LEFT_ARROW = '37';
