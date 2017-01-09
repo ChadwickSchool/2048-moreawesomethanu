@@ -73,7 +73,11 @@ function printBoard(){
 					break;
                 case 4096:
                     document.getElementById(boardID).style.color = "#ffffff";
-                    document.getElementById(boardID).style.background = "#07F6E8";
+                    document.getElementById(boardID).style.background = "#5AF7EE";
+                    break;
+                case 8192:
+                    document.getElementById(boardID).style.color = "#ffffff";
+                    document.getElementById(boardID).style.background = "#79FD69";
                     break;
 				default:
 					//similar to the else statement. If none of the other cases execute, this statement will execute
