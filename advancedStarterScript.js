@@ -1,6 +1,6 @@
 
 //2D array initialized with sample values. To get a blank board initialize all the values to zero
-var board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+var board = [[4,0,0,0],[0,0,0,0],[0,0,0,0],[4,0,0,0]];
 var UP_ARROW = '38';
 var DOWN_ARROW = '40';
 var LEFT_ARROW = '37';
@@ -110,22 +110,26 @@ document.onkeydown = function(e){
 
 	if (e.keyCode == UP_ARROW) {
         // up arrow
-        combineTilesUp();
         moveTilesUp();
+        combineTilesUp();
+        moveTilesUp(); // moves over any other tiles to fill spaces that might've been opened up from combining tiles
     }
     //double equals sign will convert it for us 
     else if (e.keyCode == DOWN_ARROW) {
         // down arrow
+        moveTilesDown();
          combineTilesDown();
          moveTilesDown();
     }
     else if (e.keyCode == LEFT_ARROW) {
        // left arrow
+       moveTilesLeft();
        combineTilesLeft();
        moveTilesLeft();
     }
     else if (e.keyCode == RIGHT_ARROW) {
        // right arrow
+       moveTilesRight();
        combineTilesRight();
        moveTilesRight();
     } 
@@ -145,6 +149,7 @@ document.onkeydown = function(e){
         emptySpaces = true;
         }
     }   
+    printBoard();
     if(emptySpaces == true){
     	addTile();
 	}
