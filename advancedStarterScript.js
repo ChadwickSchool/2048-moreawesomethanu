@@ -1,6 +1,6 @@
 
 //2D array initialized with sample values. To get a blank board initialize all the values to zero
-var board = [[2,4,2,4],[4,2,4,2],[2,4,2,4],[4,2,4,4]];
+var board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
 var UP_ARROW = '38';
 var DOWN_ARROW = '40';
 var LEFT_ARROW = '37';
@@ -100,7 +100,7 @@ function printBoard(){
 
 //As soon as webpage loads run these two functions
 $(document).ready(function(){
-	addTile();
+    addTile();
 	printBoard();
 });
 
@@ -244,6 +244,7 @@ function checkwinLeft(){
 };
 
 function emptySpaceLeft(){
+emptySpaces = false;
 	emptyUp();
         if(emptySpaces == false){
             emptyDown();
@@ -251,9 +252,6 @@ function emptySpaceLeft(){
             emptyRight();
             if(emptySpaces == false){
                 emptyLeft();
-                if(emptySpaces == false){
-                    emptyUp();
-                }
             }
         }
 };
@@ -267,9 +265,7 @@ function emptyUp(){
             if(board[r][c] == 0)
             {
                 emptySpaces = true;
-            } else {
-                emptySpaces = false;
-            }
+            } 
         }
         
     }
@@ -278,14 +274,12 @@ function emptyUp(){
 function emptyRight(){
     for(var r=0; r < board.length; r++)
     {
-        for(var c=0; c < board[r].length-1; c++)
+        for(var c=0; c < board[r].length; c++)
         {
             if(board[r][c] == 0)
             {
                 emptySpaces = true;
-            } else {
-                emptySpaces = false;
-            }
+            } 
 
         }
         
@@ -300,8 +294,6 @@ function emptyDown(){
             if(board[r][c] == 0)
             {
                 emptySpaces = true;
-            } else {
-                emptySpaces = false;
             }
         }
         
@@ -315,9 +307,7 @@ function emptyLeft(){
             if(board[r][c] == 0)
             {
                 emptySpaces = true;
-            } else {
-                emptySpaces = false;
-            }
+            } 
 
         }
             
