@@ -267,6 +267,8 @@ function emptyUp(){
             if(board[r][c] == 0)
             {
                 emptySpaces = true;
+            } else {
+                emptySpaces = false;
             }
         }
         
@@ -281,6 +283,8 @@ function emptyRight(){
             if(board[r][c] == 0)
             {
                 emptySpaces = true;
+            } else {
+                emptySpaces = false;
             }
 
         }
@@ -296,7 +300,9 @@ function emptyDown(){
             if(board[r][c] == 0)
             {
                 emptySpaces = true;
-            } 
+            } else {
+                emptySpaces = false;
+            }
         }
         
     }
@@ -309,7 +315,9 @@ function emptyLeft(){
             if(board[r][c] == 0)
             {
                 emptySpaces = true;
-            } 
+            } else {
+                emptySpaces = false;
+            }
 
         }
             
