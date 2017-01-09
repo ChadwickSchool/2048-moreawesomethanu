@@ -11,12 +11,17 @@ var score = 0;
 var newScore = 0;
 var winScore = 2048;
 var win = false;
+var highScore = 0;
 
 function printBoard(){
 	document.getElementById("scoreboard").innerHTML = "Score: " + score + "";
 	document.getElementById("scoreboard").style.color = "#A7998C";
+    document.getElementById("winScore").style.fontSize = 24;
     document.getElementById("winScore").style.color = "#A7998C";
     document.getElementById("winScore").innerHTML = "Goal: " + winScore + "";
+    document.getElementById("highScore").style.color = "#A7998C";
+    document.getElementById("highScore").style.fontSize = 24;
+    document.getElementById("highScore").innerHTML = "High score: " + highScore + "";
 
 	for(var i = 0; i < board.length; i++){
 		for(var j = 0; j < board.length; j++){
@@ -150,6 +155,9 @@ document.onkeydown = function(e){
         for(var r=board.length-1; r >= 0; r--) {
             for(var c=0; c<board[r].length; c++){
                  board[r][c] = 0;
+             }
+             if(score > highScore){
+                highScore = score;
              }
              score = 0;
             }
