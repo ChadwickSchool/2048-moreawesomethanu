@@ -1,6 +1,6 @@
 
 //2D array initialized with sample values. To get a blank board initialize all the values to zero
-var board = [[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]];
+var board = [[2,4,2,4],[4,2,4,2],[2,4,2,4],[4,2,4,4]];
 var UP_ARROW = '38';
 var DOWN_ARROW = '40';
 var LEFT_ARROW = '37';
@@ -138,23 +138,23 @@ document.onkeydown = function(e){
         window.alert("Congratulations! Your next goal is " + winScore);
         win = false;
     }
-    emptySpaceLeft();
-    checkAllTheCombinations();
     console.log(emptySpaces);
+    checkAllTheCombinations();
+    if(combinations == false){
+        emptySpaceLeft();
+    }
     if(combinations == false && emptySpaces == false){      
         window.alert("U lost man");
-        emptySpaceLeft(); //to double check that it's not a faulty error message
         if(emptySpaces == false){
         for(var r=board.length-1; r >= 0; r--) {
             for(var c=0; c<board[r].length; c++){
                  board[r][c] = 0;
              }
-            score = 0;
+             score = 0;
             }
         emptySpaces = true;
         }
     }   
-    printBoard();
     if(emptySpaces == true){
     	addTile();
 	}
@@ -243,23 +243,77 @@ function checkwinLeft(){
 };
 
 function emptySpaceLeft(){
-	for(var r=board.length-1; r >= 0; r--)
-    {
-        for(var c=0; c<board[r].length; c++)
-        {
-            if(board[r][c] == 0){
-            	emptySpaces = true;
-            	break;
-            } else {
-            	emptySpaces = false;
+	emptyUp();
+        if(emptySpaces == false){
+            emptyDown();
+        } if (emptySpaces == false){
+            emptyRight();
+            if(emptySpaces == false){
+                emptyLeft();
+                if(emptySpaces == false){
+                    emptyUp();
+                }
             }
+        }
+};
 
+function emptyUp(){
+
+    for(var r=0; r < board.length; r++)
+    {
+        for(var c=0; c< board[r].length; c++)
+        {
+            if(board[r][c] == 0)
+            {
+                emptySpaces = true;
+            }
+        }
+        
+    }
+};  
+
+function emptyRight(){
+    for(var r=0; r < board.length; r++)
+    {
+        for(var c=0; c < board[r].length-1; c++)
+        {
+            if(board[r][c] == 0)
+            {
+                emptySpaces = true;
+            }
 
         }
         
-    }   
+    }  
 };
+function emptyDown(){   
 
+    for(var r=board.length-1; r >= 0; r--)
+    {
+        for(var c=0; c<board[r].length; c++)
+        {
+            if(board[r][c] == 0)
+            {
+                emptySpaces = true;
+            } 
+        }
+        
+    }
+}
+function emptyLeft(){
+    for(var r=0; r < board.length; r++)
+    {
+        for(var c=board[r].length-1; c >= 0; c--)
+        {
+            if(board[r][c] == 0)
+            {
+                emptySpaces = true;
+            } 
+
+        }
+            
+    }   
+} 
 function checkAllTheCombinations(){
 	combinations = false;
 	combinationsUp();
