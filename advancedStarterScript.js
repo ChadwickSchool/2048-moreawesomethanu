@@ -140,12 +140,16 @@ document.onkeydown = function(e){
     }
     emptySpaceLeft();
     checkAllTheCombinations();
+    console.log(emptySpaces);
     if(combinations == false && emptySpaces == false){      
         window.alert("U lost man");
+        emptySpaceLeft(); //to double check that it's not a faulty error message
+        if(emptySpaces == false){
         for(var r=board.length-1; r >= 0; r--) {
             for(var c=0; c<board[r].length; c++){
                  board[r][c] = 0;
              }
+            }
         emptySpaces = true;
         }
     }   
